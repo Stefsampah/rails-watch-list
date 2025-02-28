@@ -6,5 +6,13 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  # root "movies#index"
+  # Quand tu supprimes une liste,
+  # tu dois supprimer tous les signets associés
+  # (mais pas les films, car ils peuvent être indiqués en référence dans d’autres listes)
+  root to: "lists#index"
+  resources :lists do
+    resources :bookmarks, only: [:new, :create]
+  end
+  resources :bookmarks, only: [:destroy]
 end
